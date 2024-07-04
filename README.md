@@ -6,7 +6,7 @@ To automate user and group management with a Linux bash script I broke the task 
 
 First, read the input file.
 Examine the text file that contains the group names and usernames of the employees. Process each line, which is formatted as user;groups.
-i.e ```script
+```ruby
 filename="$1"
 if [ ! -f "$filename" ]; then
 echo "Users list file $filename not found."
@@ -21,6 +21,7 @@ while IFS=';' read -r user groups; do
     groups=$(echo "$groups" | tr ',' ' ')
     create_user "$user" "$groups"
 done < "$filename"
+
 ```
 
 
@@ -28,8 +29,8 @@ Step 2: Divide each line into the username and the groups that belong with it. F
 
 Step 3: Create Users and Groups
 Ensure each user has a personal group with the same name as their username, then Create additional groups if they do not already exist, add the user to the specified groups.
- i.e
-```script
+
+```ruby
 # Create personal group for the user
 groupadd "$user"
 
@@ -46,6 +47,7 @@ for group in "${group_array[@]}"; do
         log_action "Group $group created."
     fi
 done
+
 ```
 
 Step 4: Set Up Home Directories
